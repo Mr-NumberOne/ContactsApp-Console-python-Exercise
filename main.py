@@ -81,14 +81,16 @@ class Contacts:
 
     def load_contacts_from_file(self):
         try:
-            with open("contacts.json", "r") as file:
-                return json.load(file)
+            with open("DB/contacts.json", "r") as file:
+                contact_list = json.load(file)
+                return contact_list["contacts"]
         except FileNotFoundError:
             return []
 
     def save_contacts_to_file(self):
-        with open("contacts.json", "w") as file:
-            json.dump(self.contacts, file)
+        with open("DB/contacts.json", "w") as file:
+            contacts_temp = dict({"contacts": self.contacts})
+            json.dump(contacts_temp, file)
 
     def get_unique_id(self):
         while True:
